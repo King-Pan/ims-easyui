@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="commons/meta :: metaHead(title='快速开发平台 | 主页')">
+</head>
+<body>
+<div id="cc" class="easyui-layout" style="width:700px;height:350px;">
+    <div th:replace="commons/header :: header"></div>
+    <div th:replace="commons/left :: left"></div>
+    <div data-options="region:'center',title:'Main Title',iconCls:'icon-ok'">
+        <table class="easyui-datagrid"
+               data-options="url:'datagrid_data1.json',method:'get',border:false,singleSelect:true,fit:true,fitColumns:true">
+            <thead>
+            <tr>
+                <th data-options="field:'itemid'" width="80">Item ID</th>
+                <th data-options="field:'productid'" width="100">Product ID</th>
+                <th data-options="field:'listprice',align:'right'" width="80">List Price</th>
+                <th data-options="field:'unitcost',align:'right'" width="80">Unit Cost</th>
+                <th data-options="field:'attr1'" width="150">Attribute</th>
+                <th data-options="field:'status',align:'center'" width="60">Status</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+    <div th:replace="commons/footer :: footer"></div>
+</div>
+
+<div th:replace="commons/js :: js"></div>
+</body>
+</html>
