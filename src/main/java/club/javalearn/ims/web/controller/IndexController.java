@@ -1,7 +1,8 @@
 package club.javalearn.ims.web.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.authz.annotation.RequiresRoles;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -19,4 +20,7 @@ public class IndexController {
     public ModelAndView indexPage() {
         return new ModelAndView("index");
     }
+
+
+
 }

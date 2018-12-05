@@ -1,13 +1,30 @@
 spring:
+  main:
+    allow-bean-definition-overriding: true
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/ims?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    url: jdbc:mysql://47.92.72.146:3306/sso?useUnicode=true&characterEncoding=utf-8&useSSL=false
     username: root
     password: 123456
   jpa:
     hibernate:
       ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect  #不加改配置则默认为myisam引擎
     show-sql: true
     format-sql: true
-    use-sql-comments: true
-
+  profiles:
+    active: dev
+server:
+  port: 8888
+  servlet:
+    context-path: /admin
+shiro:
+  expire: 100
+  password:
+    hash-iterations: 10 #默认加密次数,在密码匹配和注册两个地方使用
+    algorithm-name: sha-1 #加密算法
+logging:
+  level:
+    club.javalearn.admin: debug
+debug: true
