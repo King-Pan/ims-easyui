@@ -8,17 +8,17 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-      naming:
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      #naming:
+        #physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect  #不加改配置则默认为myisam引擎
     show-sql: true
     format-sql: true
   profiles:
     active: dev
 server:
-  port: 8888
+  port: 8080
   servlet:
-    context-path: /admin
+    context-path: /
 shiro:
   expire: 100
   password:

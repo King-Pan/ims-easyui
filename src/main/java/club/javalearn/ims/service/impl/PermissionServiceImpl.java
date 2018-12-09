@@ -1,12 +1,16 @@
 package club.javalearn.ims.service.impl;
 
+import club.javalearn.ims.entity.Menu;
 import club.javalearn.ims.entity.Permission;
+import club.javalearn.ims.entity.User;
 import club.javalearn.ims.entity.info.PermissionInfo;
 import club.javalearn.ims.repository.PermissionRepository;
 import club.javalearn.ims.service.PermissionService;
 import club.javalearn.ims.utils.Constants;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
@@ -29,7 +33,6 @@ import java.util.List;
 public class PermissionServiceImpl implements PermissionService {
 
 
-
     @Autowired
     private PermissionRepository permissionRepository;
 
@@ -38,10 +41,6 @@ public class PermissionServiceImpl implements PermissionService {
         return getList("", Constants.NOT_SELECT);
     }
 
-    @Override
-    public List<Permission> getList(Long userId) {
-        return permissionRepository.getListByUserId(userId);
-    }
 
     @Override
     public List<Permission> getList(String permissionName, String status) {
@@ -65,14 +64,14 @@ public class PermissionServiceImpl implements PermissionService {
                 }
                 return null;
             }
-        },sort);
+        }, sort);
     }
 
     @Override
     public Permission save(PermissionInfo permissionInfo) {
         Permission result;
         Permission permission = permissionInfo.convertPermission();
-        if(permission.getPermissionId()!=null){
+        if (permission.getPermissionId() != null) {
             Permission p = permissionRepository.getOne(permission.getPermissionId());
             p.setUpdateTime(new Date());
             p.setIcon(permission.getIcon());
@@ -86,7 +85,7 @@ public class PermissionServiceImpl implements PermissionService {
             p.setParentId(permission.getParentId());
             p.setStatus(permission.getStatus());
             result = permissionRepository.save(p);
-        }else{
+        } else {
             permission.setCreateTime(new Date());
             permission.setStatus(Constants.DEFAULT_STATUS);
             result = permissionRepository.save(permission);
@@ -105,7 +104,40 @@ public class PermissionServiceImpl implements PermissionService {
     }
 
     @Override
-    public void updateStatus(List<Long> permissionIds,String status) {
-        permissionRepository.updateStatus(permissionIds,status);
+    public void updateStatus(List<Long> permissionIds, String status) {
+        permissionRepository.updateStatus(permissionIds, status);
+    }
+
+    @Override
+    public List<Menu> getUserTreeMenu() {
+        //User user = (User) SecurityUtils.getSubject();
+        //Long userId = user.getUserId();
+        Long userId = 1L;
+        List<Menu> menus = new ArrayList<>();
+        Menu root = getRoot();
+        root.setChildren(getChildren(root.getId()));
+        menus.add(root);
+        return menus;
+    }
+
+    private Menu getRoot() {
+        //TODO 权限认证时，需要修改
+        Permission permission = permissionRepository.getRootByUserId(1L);
+        return new Menu(permission);
+    }
+
+    private List<Menu> getChildren(Long parentId) {
+        List<Menu> menus = null;
+        List<Permission> permissions = permissionRepository.getUserListByParentId(1L, parentId);
+        if (!permissions.isEmpty()) {
+            menus = new ArrayList<>();
+            Menu menu;
+            for (Permission p : permissions) {
+                menu = new Menu(p);
+                menu.setChildren(getChildren(menu.getId()));
+                menus.add(menu);
+            }
+        }
+        return menus;
     }
 }

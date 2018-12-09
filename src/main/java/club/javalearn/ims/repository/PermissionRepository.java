@@ -47,8 +47,22 @@ public interface PermissionRepository extends JpaRepository<Permission, Long>, Q
     @Query(value = "SELECT p.* FROM sys_permission p WHERE p.permission_id " +
             "IN (SELECT rp.permission_id FROM sys_role_permission rp " +
             "WHERE rp.role_id IN " +
-            "(SELECT ur.role_id FROM sys_user_role ur WHERE ur.user_id=:userId)) ORDER BY p.permission_id ASC", nativeQuery = true)
-    List<Permission> getListByUserId(@Param("userId") Long userId);
+            "(SELECT ur.role_id FROM sys_user_role ur WHERE ur.user_id = :userId)) and parent_id = :parentId ORDER BY p.permission_id ASC", nativeQuery = true)
+    List<Permission> getUserListByParentId(@Param("userId") Long userId, @Param("parentId") Long parentId);
+
+
+    /**
+     * 通过用户ID查找菜单根节点
+     *
+     * @param userId 用户ID
+     * @return
+     */
+    @Query(value = "SELECT p.* FROM sys_permission p WHERE p.permission_id " +
+            "IN (SELECT rp.permission_id FROM sys_role_permission rp " +
+            "WHERE rp.role_id IN " +
+            "(SELECT ur.role_id FROM sys_user_role ur WHERE ur.user_id = :userId)) and parent_id is null ORDER BY p.permission_id ASC", nativeQuery = true)
+    Permission getRootByUserId(@Param("userId") Long userId);
+
 
     /**
      * 更新状态

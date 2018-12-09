@@ -94,3 +94,13 @@
 .icon-large-chart{
 	background:url('icons/large_chart.png') no-repeat center center;
 }
+
+
+
+/**
+自定义图标
+ */
+
+.icon-home{
+	background: url('icons/extends/home.png') no-repeat center center;
+}
