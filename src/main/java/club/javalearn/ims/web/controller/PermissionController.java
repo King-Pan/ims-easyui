@@ -23,7 +23,7 @@ public class PermissionController {
 
     @GetMapping("/permission/")
     public ModelAndView permissionPage() {
-        return new ModelAndView("permission");
+        return new ModelAndView("system/permission");
     }
 
 

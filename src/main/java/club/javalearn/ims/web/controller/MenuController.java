@@ -2,6 +2,7 @@ package club.javalearn.ims.web.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Created with IntelliJ IDEA.
@@ -16,8 +17,8 @@ public class MenuController {
 
 
     @GetMapping("/menus")
-    public Object getMenu() {
-        return "";
+    public ModelAndView getMenu() {
+        return new ModelAndView("system/menu");
     }
 
 }

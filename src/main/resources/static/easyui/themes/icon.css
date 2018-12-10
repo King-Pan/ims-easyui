@@ -102,5 +102,17 @@
  */
 
 .icon-home{
-	background: url('icons/home.png') no-repeat center center;
+	background: url('icons/extends/home.png') no-repeat center center;
+}
+.icon-system{
+	background: url('icons/extends/system.png') no-repeat center center;
+}
+.icon-menu{
+	background: url('icons/extends/menu.png') no-repeat center center;
+}
+.icon-permission{
+	background: url('icons/extends/permission.png') no-repeat center center;
+}
+.icon-user{
+	background: url('icons/extends/seeuser.png') no-repeat center center;
 }

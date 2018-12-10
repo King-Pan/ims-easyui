@@ -1,26 +1,36 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="www.thymeleaf.org">
 <head th:replace="commons/meta :: metaHead(title='快速开发平台 | 主页')">
 </head>
-<body class="easyui-layout" style="margin: 0 50px">
-<div th:replace="commons/header :: header"></div>
-<div th:replace="commons/left :: left"></div>
-<div data-options="region:'center',title:'Main Title',iconCls:'icon-ok'">
-    <table class="easyui-datagrid"
-           data-options="url:'datagrid_data1.json',method:'get',border:false,singleSelect:true,fit:true,fitColumns:true">
-        <thead>
-        <tr>
-            <th data-options="field:'itemid'" width="80">Item ID</th>
-            <th data-options="field:'productid'" width="100">Product ID</th>
-            <th data-options="field:'listprice',align:'right'" width="80">List Price</th>
-            <th data-options="field:'unitcost',align:'right'" width="80">Unit Cost</th>
-            <th data-options="field:'attr1'" width="150">Attribute</th>
-            <th data-options="field:'status',align:'center'" width="60">Status</th>
-        </tr>
-        </thead>
-    </table>
-</div>
-<div th:replace="commons/footer :: footer"></div>
+<body>
+<h1>权限管理页面</h1>
+<div style="margin:20px 0;"></div>
+<table title="权限管理" class="easyui-treegrid" style="width:700px;height:250px"
+       data-options="
+                url: '../permissions',
+                method: 'post',
+                rownumbers: true,
+                idField: 'permissionId',
+                treeField: 'parentId'
+            ">
+    <thead>
+    <tr>
+        <th data-options="field:'permissionId'" width="220">权限编码</th>
+        <th data-options="field:'permissionName'" width="100" align="right">权限名称</th>
+        <th data-options="field:'description'" width="150">权限描述</th>
+        <th data-options="field:'url'" width="150">权限链接</th>
+        <th data-options="field:'icon'" width="150">图标</th>
+        <th data-options="field:'expression'" width="150">资源表达式</th>
+        <th data-options="field:'permissionType'" width="150">权限类型</th>
+        <th data-options="field:'parentId'" width="150">权限父节点编码</th>
+        <th data-options="field:'parentName'" width="150">上级资源名称</th>
+        <th data-options="field:'orderNum'" width="150">排序</th>
+        <th data-options="field:'status'" width="150">状态</th>
+        <th data-options="field:'createTime'" width="150">创建时间</th>
+        <th data-options="field:'updateTime'" width="150">更新时间</th>
+    </tr>
+    </thead>
+</table>
 
 <div th:replace="commons/js :: js"></div>
 </body>

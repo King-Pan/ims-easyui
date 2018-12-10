@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org">
+<head th:replace="commons/meta :: metaHead(title='快速开发平台 | 权限管理')">
+</head>
+<body>
+<h1>权限管理页面</h1>
+<h2>Basic Window</h2>
+<p>Window can be dragged freely on screen.</p>
+<div style="margin:20px 0;">
+    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="$('#w').window('open')">Open</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="$('#w').window('close')">Close</a>
+</div>
+<div id="w" class="easyui-window" title="Basic Window" data-options="iconCls:'icon-save'"
+     style="width:500px;height:200px;padding:10px;">
+    The window content.
+</div>
+
+<div th:replace="commons/js :: js"></div>
+</body>
+</html>
